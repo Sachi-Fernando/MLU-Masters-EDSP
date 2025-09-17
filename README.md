@@ -2,7 +2,7 @@
 
 This repository contains the course materials for the **Winter Semester 2025–26** of the *M.Sc. Economics: Data Science and Policy* program.
 
-It contains the following subjects:
+It contains the following folders which correspond to one of the courses:
 
 - **Econometrics I**
 - **Econometrics II**
@@ -10,7 +10,7 @@ It contains the following subjects:
 - **Course II**
 
 
-Each folder corresponds to a subject (e.g., *Econometrics II*) and contains the following subfolders:
+Each folder contains the following subfolders:
 
 - **Lecture** – Lecture slides and other lecture materials  
 - **Exercises** – Materials from the exercise sessions
