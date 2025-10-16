@@ -12,7 +12,7 @@ It contains the following folders which correspond a course:
 - **Ethics and Economics of Institutional Governance**
 
 
-Each folder contains the following subfolders:
+Each folder contains the following subfolders as well as other relevant material for the course
 
 - **Lecture** – Lecture slides and other lecture materials  
 - **Exercises** – Materials from the exercise sessions
