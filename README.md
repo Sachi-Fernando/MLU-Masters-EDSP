@@ -6,8 +6,10 @@ It contains the following folders which correspond a course:
 
 - **Econometrics I**
 - **Econometrics II**
-- **Course I**
-- **Course II**
+- **Advanced Macroeconomics**
+- **Advanced Microeconomics**
+- **Advanced Monetary Economics**
+- **Ethics and Economics of Institutional Governance**
 
 
 Each folder contains the following subfolders:
