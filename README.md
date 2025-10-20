@@ -4,12 +4,12 @@ This repository contains the course materials for the **Winter Semester 2025–2
 
 It contains the following folders which correspond a course:
 
-- **Econometrics I**
-- **Econometrics II**
 - **Advanced Macroeconomics**
 - **Advanced Microeconomics**
 - **Advanced Monetary Economics**
 - **Ethics and Economics of Institutional Governance**
+- **Econometrics I**
+- **Econometrics II**
 
 
 Each folder contains the following subfolders as well as other relevant material for the course
