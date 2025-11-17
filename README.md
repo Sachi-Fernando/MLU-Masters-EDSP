@@ -17,3 +17,4 @@ Each folder contains the following subfolders as well as other relevant material
 - **Lecture** – Lecture slides and other lecture materials  
 - **Exercises** – Materials from the exercise sessions
 
+Video files for the lecture **Ethics and Economics of Institutional Governance** are available [here](https://cloud.uni-halle.de/s/73wV2p5zBivPuc8).
