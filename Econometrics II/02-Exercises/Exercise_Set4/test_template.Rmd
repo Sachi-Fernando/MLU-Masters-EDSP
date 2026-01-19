@@ -1,0 +1,58 @@
+---
+title: "Test template Rmarkdown"
+author: "INSERT-YOUR-NAME-HERE"
+date: "15 January 2026"
+output: ## do not change anything here.
+    html_document:
+        code_download: true
+---
+
+# Problem 3
+
+**3.1 Set data as panel data. **
+
+```{r, message=FALSE, warning=FALSE}
+
+# Insert R-code here
+
+```
+
+**3.2 Run a pooled OLS regression. What is the return of education? Assess whether it is statistically significant.**
+
+```{r, message=FALSE, warning=FALSE}
+
+# Insert R-code here
+
+```
+
+*Insert your answer here*
+
+**3.3 Include individual-level fixed effects **
+
+```{r, message=FALSE, warning=FALSE}
+
+# Insert R-code here
+
+```
+
+**3.4 Estimate a random effects model. **
+
+```{r, message=FALSE, warning=FALSE}
+
+# Insert R-code here
+
+```
+
+**3.5 Interpret and compare the estimates of the three estimated models. **
+
+*Insert your answer here*
+
+**3.6 Run a Hausman test for fixed versus random effects model. What is your conclusion? **
+
+```{r, message=FALSE, warning=FALSE}
+
+# Insert R-code here
+
+```
+
+*Insert your answer here*
