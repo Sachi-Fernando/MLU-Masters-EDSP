@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Martin-Luther-University Halle-Wittenberg" />
+<meta name="author" content="Chair of Econometrics" />
+
+<meta name="date" content="2026-01-19" />
+
+<title>Econometrics II: Exercise Set 4</title>
+
+<script src="Exercise_Set4_files/header-attrs-2.29/header-attrs.js"></script>
+<script src="Exercise_Set4_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Exercise_Set4_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="Exercise_Set4_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Exercise_Set4_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Exercise_Set4_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="Exercise_Set4_files/navigation-1.1/tabsets.js"></script>
+<link href="Exercise_Set4_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="Exercise_Set4_files/highlightjs-9.12.0/highlight.js"></script>
+<link href="Exercise_Set4_files/table1-1.0/table1_defaults.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Econometrics II: Exercise Set 4</h1>
+<h4 class="author">Martin-Luther-University Halle-Wittenberg</h4>
+<h4 class="author">Chair of Econometrics</h4>
+<h4 class="date">2026-01-19</h4>
+
+</div>
+
+
+<div id="section" class="section level2 tabset">
+<h2 class="tabset"></h2>
+<div id="problem-3" class="section level3">
+<h3>Problem 3</h3>
+<p><strong>3.1 Set data as panel data. </strong></p>
+<pre class="r"><code># d&lt;-read.csv(&quot;YOUR-PATH/NLSY.csv&quot;, header=TRUE, sep=&quot;,&quot;)
+library(&quot;plm&quot;)
+d &lt;- pdata.frame(d, index=c(&quot;pid&quot;,&quot;wave&quot;)) #set panel structure
+pdim(d) #extract dimension of panel data</code></pre>
+<pre><code>## Unbalanced Panel: n = 7914, T = 1-10, N = 44037</code></pre>
+<p><strong>3.2 Run a pooled OLS regression. What is the return of
+education? Assess whether it is statistically significant. </strong></p>
+<pre class="r"><code>library(dplyr)
+library(forcats)
+
+#Recode variables:
+d &lt;- d %&gt;%
+  mutate(
+    marital = fct_relevel(as.factor(marital), &quot;MARRIED&quot;),
+    race    = fct_relevel(as.factor(race), &quot;NON-BLACK, NON-HISPANIC&quot;),
+    region  = fct_relevel(as.factor(region), &quot;WEST&quot;)
+  )
+
+# Pooled OLS
+pols &lt;- lm(lhw ~ edu_c + tenure + tenure2 + workexp + workexp2 
+           + race + marital + sex1 +region, 
+           data=d)
+round(summary(pols)$coefficients, 4)</code></pre>
+<pre><code>##                      Estimate Std. Error  t value Pr(&gt;|t|)
+## (Intercept)            0.9434     0.0138  68.2853   0.0000
+## edu_c                  0.0679     0.0010  66.1110   0.0000
+## tenure                 0.0014     0.0001  26.6540   0.0000
+## tenure2                0.0000     0.0000 -15.8029   0.0000
+## workexp                0.0626     0.0024  25.9129   0.0000
+## workexp2              -0.0042     0.0003 -14.9046   0.0000
+## raceBLACK             -0.0226     0.0059  -3.8010   0.0001
+## raceHISPANIC           0.0062     0.0061   1.0113   0.3119
+## maritalDIVORCED       -0.0500     0.0152  -3.2847   0.0010
+## maritalNEVER MARRIED  -0.1302     0.0059 -21.9604   0.0000
+## maritalSEPARATED      -0.0689     0.0285  -2.4138   0.0158
+## maritalWIDOWED        -0.2725     0.0955  -2.8545   0.0043
+## sex1                   0.1397     0.0046  30.1472   0.0000
+## regionNORTH CENTRAL   -0.1098     0.0071 -15.4222   0.0000
+## regionNORTHEAST       -0.0171     0.0075  -2.2683   0.0233
+## regionSOUTH           -0.1186     0.0064 -18.4410   0.0000</code></pre>
+<p><strong>3.3 Include individual-level fixed effects.</strong></p>
+<pre class="r"><code>fe &lt;- plm(lhw ~ edu_c+tenure + tenure2 + workexp + workexp2 + race
+          + marital + sex1 +region,
+          data = d, model = &quot;within&quot;)
+round(summary(fe)$coefficients, 2)</code></pre>
+<pre><code>##                      Estimate Std. Error t-value Pr(&gt;|t|)
+## edu_c                    0.09       0.00   38.01     0.00
+## tenure                   0.00       0.00   10.29     0.00
+## tenure2                  0.00       0.00   -7.90     0.00
+## workexp                  0.08       0.00   28.67     0.00
+## workexp2                 0.00       0.00  -16.79     0.00
+## maritalDIVORCED         -0.04       0.02   -2.14     0.03
+## maritalNEVER MARRIED    -0.09       0.01  -11.61     0.00
+## maritalSEPARATED        -0.04       0.03   -1.61     0.11
+## maritalWIDOWED          -0.10       0.11   -0.93     0.35
+## regionNORTH CENTRAL     -0.13       0.02   -6.16     0.00
+## regionNORTHEAST         -0.05       0.02   -2.22     0.03
+## regionSOUTH             -0.10       0.02   -5.08     0.00</code></pre>
+<p><strong>3.4 Estimate a random effects model.</strong></p>
+<pre class="r"><code>re &lt;- plm(lhw ~ edu_c+tenure + tenure2 + workexp + workexp2 + race
+          + marital + sex1 +region,
+          data = d, model = &quot;random&quot;)
+round(summary(re)$coefficients, 4)</code></pre>
+<pre><code>##                      Estimate Std. Error  z-value Pr(&gt;|z|)
+## (Intercept)            0.8547     0.0181  47.1120   0.0000
+## edu_c                  0.0771     0.0014  55.9242   0.0000
+## tenure                 0.0008     0.0000  16.8687   0.0000
+## tenure2                0.0000     0.0000 -10.3561   0.0000
+## workexp                0.0754     0.0023  32.1295   0.0000
+## workexp2              -0.0047     0.0002 -18.7739   0.0000
+## raceBLACK             -0.0354     0.0099  -3.5567   0.0004
+## raceHISPANIC           0.0094     0.0105   0.9028   0.3667
+## maritalDIVORCED       -0.0380     0.0152  -2.5048   0.0123
+## maritalNEVER MARRIED  -0.1138     0.0067 -17.0466   0.0000
+## maritalSEPARATED      -0.0580     0.0259  -2.2390   0.0252
+## maritalWIDOWED        -0.1438     0.1001  -1.4368   0.1508
+## sex1                   0.1404     0.0079  17.6961   0.0000
+## regionNORTH CENTRAL   -0.1162     0.0109 -10.6283   0.0000
+## regionNORTHEAST       -0.0280     0.0117  -2.3942   0.0167
+## regionSOUTH           -0.1138     0.0099 -11.4844   0.0000</code></pre>
+<p><strong>3.5 Interpret and compare the estimates of the three
+estimated models.</strong></p>
+<pre class="r"><code>library(modelsummary)
+modelsummary(
+  list(POLS = pols, FE = fe, RE = re),
+  output = &quot;markdown&quot;,
+  gof_map = c(&quot;nobs&quot;)
+)</code></pre>
+<table style="width:74%;">
+<colgroup>
+<col width="31%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>POLS</th>
+<th>FE</th>
+<th>RE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td>0.943</td>
+<td></td>
+<td>0.855</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.014)</td>
+<td></td>
+<td>(0.018)</td>
+</tr>
+<tr class="odd">
+<td>edu_c</td>
+<td>0.068</td>
+<td>0.089</td>
+<td>0.077</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.001)</td>
+<td>(0.002)</td>
+<td>(0.001)</td>
+</tr>
+<tr class="odd">
+<td>tenure</td>
+<td>0.001</td>
+<td>0.001</td>
+<td>0.001</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+</tr>
+<tr class="odd">
+<td>tenure2</td>
+<td>-0.000</td>
+<td>-0.000</td>
+<td>-0.000</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+</tr>
+<tr class="odd">
+<td>workexp</td>
+<td>0.063</td>
+<td>0.081</td>
+<td>0.075</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.002)</td>
+<td>(0.003)</td>
+<td>(0.002)</td>
+</tr>
+<tr class="odd">
+<td>workexp2</td>
+<td>-0.004</td>
+<td>-0.005</td>
+<td>-0.005</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+<td>(0.000)</td>
+</tr>
+<tr class="odd">
+<td>raceBLACK</td>
+<td>-0.023</td>
+<td></td>
+<td>-0.035</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.006)</td>
+<td></td>
+<td>(0.010)</td>
+</tr>
+<tr class="odd">
+<td>raceHISPANIC</td>
+<td>0.006</td>
+<td></td>
+<td>0.009</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.006)</td>
+<td></td>
+<td>(0.010)</td>
+</tr>
+<tr class="odd">
+<td>maritalDIVORCED</td>
+<td>-0.050</td>
+<td>-0.036</td>
+<td>-0.038</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.015)</td>
+<td>(0.017)</td>
+<td>(0.015)</td>
+</tr>
+<tr class="odd">
+<td>maritalNEVER MARRIED</td>
+<td>-0.130</td>
+<td>-0.092</td>
+<td>-0.114</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.006)</td>
+<td>(0.008)</td>
+<td>(0.007)</td>
+</tr>
+<tr class="odd">
+<td>maritalSEPARATED</td>
+<td>-0.069</td>
+<td>-0.044</td>
+<td>-0.058</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.029)</td>
+<td>(0.027)</td>
+<td>(0.026)</td>
+</tr>
+<tr class="odd">
+<td>maritalWIDOWED</td>
+<td>-0.272</td>
+<td>-0.101</td>
+<td>-0.144</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.095)</td>
+<td>(0.109)</td>
+<td>(0.100)</td>
+</tr>
+<tr class="odd">
+<td>sex1</td>
+<td>0.140</td>
+<td></td>
+<td>0.140</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.005)</td>
+<td></td>
+<td>(0.008)</td>
+</tr>
+<tr class="odd">
+<td>regionNORTH CENTRAL</td>
+<td>-0.110</td>
+<td>-0.129</td>
+<td>-0.116</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.007)</td>
+<td>(0.021)</td>
+<td>(0.011)</td>
+</tr>
+<tr class="odd">
+<td>regionNORTHEAST</td>
+<td>-0.017</td>
+<td>-0.054</td>
+<td>-0.028</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.008)</td>
+<td>(0.024)</td>
+<td>(0.012)</td>
+</tr>
+<tr class="odd">
+<td>regionSOUTH</td>
+<td>-0.119</td>
+<td>-0.100</td>
+<td>-0.114</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(0.006)</td>
+<td>(0.020)</td>
+<td>(0.010)</td>
+</tr>
+<tr class="odd">
+<td>Num.Obs.</td>
+<td>44037</td>
+<td>44037</td>
+<td>44037</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3.5 Run a Hausman test for fixed versus random effects model.
+What is your conclusion?</strong></p>
+<pre class="r"><code>phtest(fe,re)</code></pre>
+<pre><code>## 
+##  Hausman Test
+## 
+## data:  lhw ~ edu_c + tenure + tenure2 + workexp + workexp2 + race +  ...
+## chisq = 500.55, df = 12, p-value &lt; 2.2e-16
+## alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+<div id="problem-6" class="section level3">
+<h3>Problem 6</h3>
+<p><strong>6.1 Load data, set as panel data, report number of
+observations.</strong></p>
+<pre class="r"><code>d &lt;- read.table(&quot;rwm.data&quot;, header = FALSE)
+new_names &lt;- c(
+  &quot;id&quot;, &quot;female&quot;, &quot;year&quot;, &quot;age&quot;, &quot;hsat&quot;, &quot;handdum&quot;, &quot;handper&quot;,
+  &quot;hhninc&quot;, &quot;hhkids&quot;, &quot;educ&quot;, &quot;married&quot;, &quot;haupts&quot;, &quot;reals&quot;,
+  &quot;fachhs&quot;, &quot;abitur&quot;, &quot;univ&quot;, &quot;working&quot;, &quot;bluec&quot;, &quot;whitec&quot;,
+  &quot;self&quot;, &quot;beamt&quot;, &quot;docvis&quot;, &quot;hospvis&quot;, &quot;public&quot;, &quot;addon&quot;
+)
+
+d &lt;- d %&gt;%
+  rename_with(~ new_names, .cols = V1:V25)
+
+# Set panel data:
+d &lt;- pdata.frame(d, index=c(&quot;id&quot;, &quot;year&quot;))
+pdim(d)</code></pre>
+<pre><code>## Unbalanced Panel: n = 7293, T = 1-7, N = 27326</code></pre>
+<p><strong>6.2 Dichotomise the variable docvis.</strong></p>
+<pre class="r"><code>d &lt;- d %&gt;%
+  mutate(docvis01 = if_else(docvis &gt; 0, 1, 0))</code></pre>
+<p><strong>6.3 Present descriptive statistics for these variables.
+Compare the descriptive statistics of people who have been to the doctor
+in the last three months with those who have not.</strong></p>
+<pre class="r"><code>#Select relevant variables:
+d &lt;- d %&gt;%
+  select(
+    id, year, female, age, hhninc, hhkids, educ, married, hsat, docvis01
+  )
+
+# Descriptives:
+library(table1)
+table1(~ female + age + hhninc + hhkids + educ + married + hsat | d$docvis01, data = d)</code></pre>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>0<br><span class='stratn'>(N=10135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>1<br><span class='stratn'>(N=17191)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br><span class='stratn'>(N=27326)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'>female</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>0.381 (0.486)</td>
+<td>0.536 (0.499)</td>
+<td>0.479 (0.500)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>0 [0, 1.00]</td>
+<td class='lastrow'>1.00 [0, 1.00]</td>
+<td class='lastrow'>0 [0, 1.00]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>age</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>41.4 (10.5)</td>
+<td>44.8 (11.6)</td>
+<td>43.5 (11.3)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>41.0 [25.0, 64.0]</td>
+<td class='lastrow'>45.0 [25.0, 64.0]</td>
+<td class='lastrow'>43.0 [25.0, 64.0]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>hhninc</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>3580 (1780)</td>
+<td>3480 (1760)</td>
+<td>3520 (1770)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>3300 [0, 30000]</td>
+<td class='lastrow'>3200 [0, 30700]</td>
+<td class='lastrow'>3200 [0, 30700]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>hhkids</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>0.460 (0.498)</td>
+<td>0.369 (0.483)</td>
+<td>0.403 (0.490)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>0 [0, 1.00]</td>
+<td class='lastrow'>0 [0, 1.00]</td>
+<td class='lastrow'>0 [0, 1.00]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>educ</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>11.6 (2.48)</td>
+<td>11.2 (2.22)</td>
+<td>11.3 (2.32)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>10.5 [7.00, 18.0]</td>
+<td class='lastrow'>10.5 [7.00, 18.0]</td>
+<td class='lastrow'>10.5 [7.00, 18.0]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>married</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>0.744 (0.436)</td>
+<td>0.767 (0.423)</td>
+<td>0.759 (0.428)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>1.00 [0, 1.00]</td>
+<td class='lastrow'>1.00 [0, 1.00]</td>
+<td class='lastrow'>1.00 [0, 1.00]</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'>hsat</td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>7.67 (1.88)</td>
+<td>6.27 (2.36)</td>
+<td>6.79 (2.29)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Median [Min, Max]</td>
+<td class='lastrow'>8.00 [0, 10.0]</td>
+<td class='lastrow'>7.00 [0, 10.0]</td>
+<td class='lastrow'>7.00 [0, 10.0]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>6.4 Estimate a pooled logit model, a conditional fixed effect
+logit model, and a random effects logit model.</strong></p>
+<pre class="r"><code># Pooled logit
+m1 &lt;- glm( docvis01 ~ age + hhninc + hhkids + educ + married, 
+           data=d, family = binomial(link = &quot;logit&quot;))
+
+#Conditional fixed effect logit
+library(survival)
+m2 &lt;- clogit( as.numeric(d$docvis01) ~ 
+                age + hhninc + hhkids + educ + married + 
+                strata(id), data = d)
+
+#Random effects logit
+library(lme4)
+m3 &lt;- glmer( docvis01 ~ 
+               age + hhninc + hhkids + educ + married + (1 | id),
+             data = d, family = binomial(link = &quot;logit&quot;))</code></pre>
+<p><strong>6.5 Calculate marginal effects.</strong></p>
+<pre class="r"><code>library(margins)
+margins( m1, data = d )</code></pre>
+<pre><code>##       age     hhninc  hhkids     educ married
+##  0.004711 -4.229e-06 -0.0522 -0.01037  0.0194</code></pre>
+<pre class="r"><code>margins( m3, data = d )</code></pre>
+<pre><code>##       age     hhninc  hhkids     educ  married
+##  0.006043 -3.568e-07 -0.0487 -0.01055 0.005986</code></pre>
+<p><strong>6.6 Perform a likelihood ratio test of the random effects
+logit model against the pooled logit. </strong></p>
+<pre class="r"><code>library(lmtest)
+lrtest(m1, m3)</code></pre>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: docvis01 ~ age + hhninc + hhkids + educ + married
+## Model 2: docvis01 ~ age + hhninc + hhkids + educ + married + (1 | id)
+##   #Df LogLik Df  Chisq Pr(&gt;Chisq)    
+## 1   6 -17673                         
+## 2   7 -16400  1 2546.1  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
